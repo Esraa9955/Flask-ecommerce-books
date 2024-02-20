@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request,render_template,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 
 app = Flask(__name__) #Initialize the application  in the main of the current module
 books=[{"id":1, "name":"math","image":"1.png"},{"id":2, "name":"arbic","image":"2.png"},{"id":3, "name":"physics","image":"3.png"}]
@@ -49,6 +50,32 @@ def products_show(id):
   product = Product.query.get_or_404(id)
   return render_template("products/show.html",product=product)
 
+@app.route("/products/delete/<int:id>", methods=['POST'], endpoint='product.delete')
+def delete_product(id):
+    product = Product.query.get_or_404(id)
+    
+    db.session.delete(product)
+    db.session.commit()
+    
+    return redirect(url_for('prducts.index'))
+
+@app.route("/products/edit/<int:id>", methods=['GET', 'POST'], endpoint='product.edit')
+def edit_product(id):
+    product = Product.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        
+        product.name = request.form['name']
+        product.image = request.form['image']
+        product.details = request.form['details']
+        product.no_of_Pages = request.form['pages']
+        product.price = request.form['price']
+        
+        db.session.commit()
+        return redirect(url_for('prducts.index'))
+    
+    return render_template("products/edit.html", product=product)
+
 @app.errorhandler(404)
 def get_404(error):
   return render_template("error/error404.html")
@@ -59,12 +86,14 @@ def create_product():
     ## post
     print(request.form)
     if request.method == 'POST':
-        product = Product(name=request.form['name'], image=request.form['image'])
+        product = Product(name=request.form['name'], image=request.form['image'],details=request.form['details'],no_of_Pages=request.form['pages'],price=request.form['price'])
         db.session.add(product)
         db.session.commit()
         # return "Saved
         return redirect(url_for('prducts.index'))
     return render_template("products/create.html")
+
+
 @app.route("/bks/home")
 def books_home():
   return render_template("/books/home.html",name="esraa",books=books)
@@ -83,6 +112,8 @@ def show_book(id):
     return  render_template("books/profile.html",book=bks[0])
   return "book not found"
 
+
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 db=SQLAlchemy(app)
 
@@ -91,6 +122,11 @@ class Product(db.Model):
   id = db.Column(db.Integer,primary_key=True)
   name = db.Column(db.String) 
   image= db.Column(db.String,nullable=True)
+  details=db.Column(db.String,nullable=True)
+  no_of_Pages=db.Column(db.Integer,nullable=True)
+  price=db.Column(db.Float,nullable=True)
+  created_at = db.Column(db.DateTime, default=func.now())
+  updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
 
 
   def __str__(self):

@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %} 
 {% block content %}
-<h1>Products index</h1>
+<h1>Books</h1>
 
 <a  class="btn btn-primary" href="{{url_for('product.create')}}">Create New Product</a>
 <div class="d-flex flex-row flex-wrap gap-3">
@@ -11,10 +11,15 @@
     <div class="card-body">
       <h5 class="card-title">{{product.name}}</h5>
       <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk of
-        the card's content.
+        {{product.details}}
       </p>
+      
+      <form method="post" action="{{ url_for('product.delete', id=product.id) }}" style="display: inline;">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
       <a href="{{url_for('product.show',id=product.id)}}" class="btn btn-primary">Show</a>
+      <a href="{{ url_for('product.edit', id=product.id) }}" class="btn btn-warning">Edit</a>
+      
     </div>
   </div>
   {% endfor %} 
