@@ -9,11 +9,10 @@ class DevelopmentConfig(Config):
   SQLALCHEMY_DATABASE_URI='sqlite:///Project.db'
 
 
-
-
 class ProductionConfig(Config):
   DEBUG=False
-  SQLALCHEMY_DATABASE_URI='postgresql://posters:12345@localhost:5432/flask '
+  SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:12345@localhost:5432/flask'
+
 
 
 config_options ={

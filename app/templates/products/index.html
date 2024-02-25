@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %} 
+{% block content %}
+<h1>Books</h1>
+
+<a  class="btn btn-primary" href="{{url_for('products.create')}}">Create New Product</a>
+<div class="d-flex flex-row flex-wrap gap-3">
+
+  {% for product in products %}
+  <div class="card" style="width: 18rem">
+    <img src="{{product.image_url}}" class="card-img-top" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <p class="card-text">
+        {{product.details}}
+      </p>
+
+      <form method="post" action="{{ url_for('products.delete', id=product.id) }}" style="display: inline;">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      <a href="{{product.show_url}}" class="btn btn-primary">Show</a>
+      <a href="{{product.edit_url}}" class="btn btn-warning">Edit</a>
+
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

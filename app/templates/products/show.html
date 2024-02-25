@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %} {% block content %}
+<h1> Book Details</h1>
+{{products}} 
+
+
+
+  <div class="card" style="width: 18rem">
+    <img src="{{url_for('static',filename='books/images/'+product.image)}}" class="card-img-top" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <p class="card-text">
+        {{product.details}}
+      </p>
+      <p class="card-text">
+        {{product.no_of_Pages}}
+      </p>
+      <p class="card-text">
+        {{product.price}}
+      </p>
+      <p class="card-text">
+        {{product.created_at}}
+      </p>
+      <p class="card-text">
+        {{product.updated_at}}
+      </p>
+      <a href="{{product.index_url}}" class="btn btn-primary">Back</a>
+    </div>
+  </div>
+
+
+{% endblock %}

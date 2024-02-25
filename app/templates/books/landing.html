@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Image</th>
+    <th>Show</th>
+  </tr>
+  {% for bks in books %}
+  <tr>
+    <td>{{bks["id"]}}</td>
+    <td>{{bks["name"]}}</td>
+    <td><img width="200px" height="150px" src="{{url_for('static',filename='books/images/'+bks['image'])}}" alt=""></td>
+    <td><a class="btn btn-info" href="{{url_for('book_show',id=bks['id'])}}">Show</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

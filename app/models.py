@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
-
+from  flask import  url_for
 db = SQLAlchemy()
 
 
@@ -15,9 +15,32 @@ class Product(db.Model):
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
 
-    def __Str__(self):
+    def __str__(self):
         return self.name
+
+
+    @property
+    def image_url(self):
+        return url_for('static',filename=f'books/images/{self.image}')
+
+    @property
+    def show_url(self):
+        return url_for("products.show",id=self.id)
+
+    @property
+    def index_url(self):
+        return url_for("products.product_index")
 
     @classmethod
     def get_all_objects(cls):
         return cls.query.all()
+    @classmethod
+    def get_product_by_id(cls,id):
+        return cls.query.get_or_404(id)
+
+    @classmethod
+    def save_product(cls,request_data):
+        product=cls(**request_data)
+        db.session.add(product)
+        db.session.commit()
+        return product
