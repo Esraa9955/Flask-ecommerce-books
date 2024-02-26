@@ -13,6 +13,8 @@ class Category(db.Model):
     def __str__(self):
         return f'{self.name}'
 
+
+
     @classmethod
     def get_all_category(cls):
         return cls.query.all()
@@ -20,6 +22,14 @@ class Category(db.Model):
     @classmethod
     def delete_category_by_id(cls, id):
         return cls.query.get_or_404(id)
+
+    @property
+    def delete_url(self):
+        return url_for("categories.category_delete", id=self.id)
+
+    @property
+    def edit_url(self):
+        return url_for("categories.category_edit", id=self.id)
 class Product(db.Model):
     __tablename__ = "products"
     id = db.Column(db.Integer, primary_key=True)

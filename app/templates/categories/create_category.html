@@ -1,7 +1,8 @@
 {% extends 'layouts/base.html' %}
 
+
 {% block content %}
-    <h1 class='text-center'>Update Category</h1>
+    <h1 class='text-center'>Create Category</h1>
 
     <form action="" method="POST">
         {{ form.hidden_tag() }}
@@ -13,7 +14,7 @@
             <label class="form-label">Description</label>
             {{ form.description(class="form-control") }}
         </div>
-        <button type="submit" class="btn btn-primary">Update Category</button>
+        <button type="submit" class="btn btn-primary">Create Category</button>
     </form>
 {% endblock %}
 </form>
