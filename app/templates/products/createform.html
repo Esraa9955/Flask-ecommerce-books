@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html' %}
+
+{% import 'macros_.html' as mymacro %}
+
+{% block content %}
+<h1>Add Book</h1>
+<form action="" method="POST" enctype="multipart/form-data">
+   {{ form.csrf_token}}
+   {{mymacro.render_field(form.name) }}
+   {{mymacro.render_field(form.image) }}
+   {{mymacro.render_field(form.no_of_Pages) }}
+   {{mymacro.render_field(form.price) }}
+   {{mymacro.render_field(form.Category_id) }}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<!--  <div class="container mt-4">-->
+<!--    <h1 class="mb-4">Add Book</h1>-->
+<!--    <form action="" method="POST" enctype="multipart/form-data">-->
+<!--      {{ form.csrf_token}}-->
+<!--      <div class="mb-3">-->
+<!--        <label for="name" class="form-label">{{ form.name.label }}</label>-->
+<!--        {{ form.name(class="form-control") }}-->
+<!--      </div>-->
+<!--      <div class="mb-3">-->
+<!--        <label for="no_of_Pages" class="form-label">{{ form.no_of_Pages.label }}</label>-->
+<!--        {{ form.no_of_Pages(class="form-control") }}-->
+<!--      </div>-->
+<!--      <div class="mb-3">-->
+<!--        <label for="price" class="form-label">{{ form.price.label }}</label>-->
+<!--        {{ form.price(class="form-control") }}-->
+<!--      </div>-->
+<!--      <div class="mb-3">-->
+<!--        <label for="image" class="form-label">{{ form.image.label }}</label>-->
+<!--        {{ form.image(class="form-control") }}-->
+<!--      </div>-->
+<!--      <div class="mb-3">-->
+<!--        <label for="Category_id" class="form-label">{{ form.Category_id.label }}</label>-->
+<!--        {{ form.Category_id(class="form-control") }}-->
+<!--      </div>-->
+
+<!--      <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--    </form>-->
+<!--  </div>-->
+{% endblock %}

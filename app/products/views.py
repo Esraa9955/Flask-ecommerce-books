@@ -1,7 +1,7 @@
 from  flask import  render_template,request,redirect,url_for
 from app.models import Product,db
 from  app.products import product_blueprint
-
+from app.products.forms import ProductForm
 
 @product_blueprint.route('',endpoint='product_index')
 def product_index():
@@ -33,3 +33,18 @@ def delete_product(id):
 
     return redirect(url_for('products.product_index'))
 
+
+@product_blueprint.route("/createform", methods=["POST", "GET"], endpoint='createform')
+def create_product_viaforms():
+    form = ProductForm(request.form)
+    if request.method == 'POST' and form.validate():
+        print(request.form)
+        product_data = dict(request.form)
+        print(product_data)
+        del product_data['csrf_token']
+        product = Product.save_product(product_data)
+        return redirect(product.show_url)
+
+    # elif request.method == 'GET':
+
+    return render_template("products/createform.html", form=form)

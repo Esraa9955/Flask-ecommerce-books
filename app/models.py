@@ -3,7 +3,23 @@ from sqlalchemy import func
 from  flask import  url_for
 db = SQLAlchemy()
 
+class Category(db.Model):
+    __tablename__= 'category'
+    id = db.Column(db.Integer , primary_key=True)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+    pro = db.relationship('Product', backref='category_name', lazy=True)
 
+    def __str__(self):
+        return f'{self.name}'
+
+    @classmethod
+    def get_all_category(cls):
+        return cls.query.all()
+
+    @classmethod
+    def delete_category_by_id(cls, id):
+        return cls.query.get_or_404(id)
 class Product(db.Model):
     __tablename__ = "products"
     id = db.Column(db.Integer, primary_key=True)
@@ -14,6 +30,9 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=True)
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
+
+    Category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=True)
+
 
     def __str__(self):
         return self.name

@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %} 
+{% block content %}
+<h1>Edit Product</h1>
+
+<form method="post" action="{{ url_for('product.edit', id=product.id) }}">
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="image" class="form-label">Image URL</label>
+    <input type="text" class="form-control" id="image" name="image" value="{{ product.image }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="details" class="form-label">Product Details</label>
+    <textarea class="form-control" id="details" name="details" rows="4" required>{{ product.details }}</textarea>
+  </div>
+  <div class="mb-3">
+    <label for="numberOfPages" class="form-label">Number of Pages</label>
+    <input type="number" class="form-control" id="pages" name="pages" value="{{ product.no_of_Pages }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ product.price }}" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Update Product</button>
+  <a href="{{ url_for('product.index_url') }}" class="btn btn-secondary">Cancel</a>
+</form>
+
+
+
+{% endblock %}

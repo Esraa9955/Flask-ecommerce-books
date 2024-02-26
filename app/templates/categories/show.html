@@ -9,9 +9,6 @@
     <div class="card-body">
       <h5 class="card-title">{{product.name}}</h5>
       <p class="card-text">
-        Category: {{product.category_name}}
-      </p>
-      <p class="card-text">
         {{product.details}}
       </p>
       <p class="card-text">
@@ -29,23 +26,6 @@
       <a href="{{product.index_url}}" class="btn btn-primary">Back</a>
     </div>
   </div>
-
-
-    <br>
-
-<h3>Other Books In This Category</h3>
-<div class="row gap-2">
-    {% for prd in product.category_name.pro %}
-        <div class="col-md-3">
-            <div class="card" style="width: 18rem;">
-                <img src='{{ url_for("static", filename="books/images/" + prd.image) }}' class="card-img-top" alt="Book Image" width="200px" height="200px">
-                <div class="card-body">
-                    <h5 class="card-title">{{ prd.name }}</h5>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-</div>
 
 
 {% endblock %}
