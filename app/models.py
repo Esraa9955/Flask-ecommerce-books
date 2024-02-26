@@ -63,3 +63,10 @@ class Product(db.Model):
         db.session.add(product)
         db.session.commit()
         return product
+
+    @classmethod
+    def delete_product(cls,id):
+        prd = cls.query.get_or_404(id)
+        db.session.delete(prd)
+        db.session.commit()
+        return True
